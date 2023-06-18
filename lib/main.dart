@@ -1,6 +1,11 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/AddScreen.dart';
+import 'package:flutter_project/UpdateScreen.dart';
+import 'package:flutter_project/UploadImage.dart';
+import 'package:flutter_project/viewmodels/product_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import 'DashboardScreen.dart';
 import 'ForgetScreen.dart';
@@ -22,18 +27,41 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>ProductViewModel())
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: "/upload-screen",
+        routes: {
+          "/login": (context) => LoginScreen(),
+          "/register": (context) => RegisterScreen(),
+          "/forget-password": (context) => ForgetScreen(),
+          "/dasboard": (context) => DashBoardScreen(),
+          "/add-screen": (context) => AddScreen(),
+          "/update-screen": (context) => UpdateScreen(),
+          "/upload-screen": (context)=>UploadImage()
+        },
       ),
-      initialRoute: "/login",
-      routes: {
-        "/login": (context) => LoginScreen(),
-        "/register": (context) => RegisterScreen(),
-        "/forget-password": (context) => ForgetScreen(),
-        "/dasboard": (context) => DashBoardScreen(),
-      },
     );
   }
 }
+
+
+//
+// @override
+// void initState() {
+//   WidgetsBinding.instance.addPostFrameCallback((_) {
+//   });
+//   super.initState();
+// }
+// @override
+// void initState() {
+//   WidgetsBinding.instance.addPostFrameCallback((_) {
+//   });
+//   super.initState();
+// }

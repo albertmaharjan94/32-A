@@ -19,20 +19,29 @@ class _LoginScreenState extends State<LoginScreen> {
   String _uid = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(_auth.currentUser!=null){
+        Navigator.of(context).pushNamed("/dasboard");
+      }
+    });
+    super.initState();
+  }
+
   void _login() async {
     try {
-      
+      final user = await _auth.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Login Success")));
+      Navigator.of(context).pushNamed("/dasboard");
     } on FirebaseAuthException catch (err) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(err.message.toString()),
         backgroundColor: Colors.red,
       ));
     }
-  }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
@@ -64,10 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                     style: const TextStyle(
-                        fontFamily: 'WorkSansSemiBold', fontSize: 16.0, color: Colors.black),
+                        fontFamily: 'WorkSansSemiBold',
+                        fontSize: 16.0,
+                        color: Colors.black),
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
                       border: InputBorder.none,
                       prefixIcon: Icon(
                         Icons.email,
@@ -75,7 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         size: 22.0,
                       ),
                       hintText: 'Email Address',
-                      hintStyle: TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 17.0),
+                      hintStyle: TextStyle(
+                          fontFamily: 'WorkSansSemiBold', fontSize: 17.0),
                     ),
                   ),
                   SizedBox(
@@ -91,17 +105,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                     style: const TextStyle(
-                        fontFamily: 'WorkSansSemiBold', fontSize: 16.0, color: Colors.black),
+                        fontFamily: 'WorkSansSemiBold',
+                        fontSize: 16.0,
+                        color: Colors.black),
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
                       prefixIcon: const Icon(
                         Icons.lock,
                         size: 22.0,
                         color: Colors.black,
                       ),
                       hintText: 'Password',
-                      hintStyle: const TextStyle(fontFamily: 'WorkSansSemiBold', fontSize: 17.0),
+                      hintStyle: const TextStyle(
+                          fontFamily: 'WorkSansSemiBold', fontSize: 17.0),
                       suffixIcon: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -109,7 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
                         },
                         child: Icon(
-                          _obscureTextPassword ? Icons.visibility : Icons.visibility_off,
+                          _obscureTextPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           size: 20.0,
                           color: Colors.black,
                         ),
@@ -137,10 +158,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  side: BorderSide(color: Colors.blue))),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: BorderSide(color: Colors.blue))),
                           padding: MaterialStateProperty.all<EdgeInsets>(
                               EdgeInsets.symmetric(vertical: 20)),
                         ),

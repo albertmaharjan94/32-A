@@ -15,7 +15,9 @@ class _ForgetScreenState extends State<ForgetScreen> {
 
   void resetPassword() async {
     try {
-      
+      await _auth.sendPasswordResetEmail(email: _emailController.text);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Check email")));
+
     } on FirebaseAuthException catch (err) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(err.message.toString()),

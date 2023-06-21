@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/AddScreen.dart';
 import 'package:flutter_project/UpdateScreen.dart';
 import 'package:flutter_project/UploadImage.dart';
+import 'package:flutter_project/services/NotificationService.dart';
 import 'package:flutter_project/viewmodels/product_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  NotificationService.initialize();
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

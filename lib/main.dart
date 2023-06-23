@@ -2,6 +2,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/AddScreen.dart';
+import 'package:flutter_project/NotificationDemo.dart';
 import 'package:flutter_project/UpdateScreen.dart';
 import 'package:flutter_project/UploadImage.dart';
 import 'package:flutter_project/services/NotificationService.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: "/upload-screen",
+        initialRoute: "/notification-demo",
         routes: {
           "/login": (context) => LoginScreen(),
           "/register": (context) => RegisterScreen(),
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           "/dasboard": (context) => DashBoardScreen(),
           "/add-screen": (context) => AddScreen(),
           "/update-screen": (context) => UpdateScreen(),
-          "/upload-screen": (context)=>UploadImage()
+          "/upload-screen": (context)=>UploadImage(),
+          "/notification-demo" : (context)=> NotificationDemo()
         },
       ),
     );

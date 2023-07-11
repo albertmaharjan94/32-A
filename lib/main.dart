@@ -7,6 +7,7 @@ import 'package:flutter_project/UpdateScreen.dart';
 import 'package:flutter_project/UploadImage.dart';
 import 'package:flutter_project/services/NotificationService.dart';
 import 'package:flutter_project/viewmodels/product_viewmodel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'DashboardScreen.dart';
@@ -36,8 +37,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.red,
+          textTheme: GoogleFonts.latoTextTheme().copyWith(
+            bodyMedium: GoogleFonts.oswald(),
+          ),
         ),
         initialRoute: "/notification-demo",
         routes: {

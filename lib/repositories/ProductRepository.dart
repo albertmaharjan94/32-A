@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/models/ProductModel.dart';
+import 'package:flutter_project/services/FirebaseService.dart';
 
 class ProductRepository {
-  final instance = FirebaseFirestore.instance.collection("product").withConverter(
+  final instance = FirebaseService.db.collection("product").withConverter(
     fromFirestore: (snapshot, _) {
       return ProductModel.fromFirebaseSnapshot(snapshot);
     },
@@ -36,10 +37,10 @@ class ProductRepository {
     }
   }
 
-  Future<ProductModel> getOneProduct(String id) async {
+  Future<ProductModel?> getOneProduct(String id) async {
     try {
       final product = await instance.doc(id).get();
-      return product.data()!;
+      return product.data();
     } catch (e) {
       print(e);
       rethrow;

@@ -31,8 +31,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
   void fillData(String id) async{
     try{
       final response = await ProductRepository().getOneProduct(id);
-      _name.text = response.name.toString();
-      _price.text = response.price.toString();
+      if(response!= null){
+        _name.text = response.name.toString();
+        _price.text = response.price.toString();
+      }
     }catch(e){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
